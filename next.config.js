@@ -8,7 +8,7 @@ const nextConfig = {
     typedRoutes: true,
   },
   images: {
-    domains: ["authjs.dev"]
+    domains: ["authjs.dev", "i.scdn.co", "cdn.discordapp.com"]
   }
 }
 

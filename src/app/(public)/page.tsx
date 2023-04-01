@@ -1,20 +1,38 @@
-// nextjs app directory page template
+import { JobStatus } from "@prisma/client";
+import styles from "./page.module.scss";
+import Link from "next/link";
+import { prisma } from "@/lib/prisma";
 
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
+const getJobs = async () => {
+  const jobs = await prisma.job.findMany({
+    where: {
+      status: JobStatus.PENDING,
+    },
+  });
+
+  return jobs;
+}
 
 export default async function Page() {
-    const session = await getServerSession(authOptions)
-    console.log(session);
+  const jobs = await getJobs();
 
-    if (!session) redirect("/api/auth/signin")
+  return (
+    <main className={styles.main}>
+      <section>
+        <h1>Jobs</h1>
+        <div>
 
-    return (
-        <>
-            <h1>{session.user?.name}</h1>
-            <p>{session.user?.email}</p>
-            <img src={session.user?.image || ""} />
-        </>
-    );
+          {jobs.map((job) =>
+            <Link href={`/job/${job.id}`}>
+              <article>
+                <h2>{job.title}</h2>
+
+              </article>
+            </Link>
+          )}
+
+        </div>
+      </section>
+    </main >
+  );
 }

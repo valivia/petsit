@@ -1,0 +1,79 @@
+@use "@styles/abstracts" as *;
+
+$height: 3.5rem;
+$padding: 0.5rem;
+
+.main {
+  @include noselect;
+  padding-top: $padding;
+  height: calc($height + $padding);
+  padding-inline: 1.2em;
+
+  position: sticky;
+  z-index: $z-sticky;
+  top: 0;
+
+  background-color: transparent;
+  transition: background-color 100ms ease-in-out, box-shadow 100ms ease-in-out;
+
+  &[data-is_scrolled="true"] {
+    background-color: $primary;
+    box-shadow: 0 0 0.2em 0.6em $primary;
+  }
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6em;
+
+  height: 100%;
+
+  & * {
+    display: block;
+  }
+}
+
+.button,
+.avatar {
+  // Alignment
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  // Font
+  font-size: Clamp(1rem, 2vw, 1.4rem);
+
+  font-weight: 300;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.spacer {
+  width: 100%;
+}
+
+.button {
+  transition: transform 100ms ease-in-out;
+  transform: scale(1);
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+}
+
+.avatar {
+  & > a {
+    position: relative;
+    width: 3em;
+    height: 3em;
+
+    border-radius: 100vmin;
+    overflow: hidden;
+  }
+}

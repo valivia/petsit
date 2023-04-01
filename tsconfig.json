@@ -28,13 +28,16 @@
         "./src/*"
       ],
       "@public/*": [
-        "public/*"
+        "./src/public/*"
       ],
       "@structs/*": [
-        "src/structs/*"
+        "./src/structs/*"
       ],
       "@styles/*": [
-        "src/styles/*"
+        "./src/styles/*"
+      ],
+      "@lib/*": [
+        "./src/lib/*"
       ],
     }
   },
