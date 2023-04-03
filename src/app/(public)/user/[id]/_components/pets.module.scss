@@ -1,0 +1,14 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  padding: 1rem;
+
+  border: 2px solid rgba($text, 0.4);
+  border-radius: 0.5rem;
+}
+
+.pets {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+}

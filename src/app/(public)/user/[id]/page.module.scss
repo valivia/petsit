@@ -1,0 +1,33 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  min-height: 100vh;
+  width: min(120ch, 100%);
+
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: flex-start;
+  align-content: flex-start;
+
+  gap: 2rem;
+  padding: 4rem 2rem;
+
+  & > * {
+    flex-grow: 1;
+  }
+}
+
+.section {
+  padding: 1rem;
+  border: 2px solid rgba($text, 0.4);
+  border-radius: 0.5rem;
+}
+
+.avatar {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+  border-radius: 100vmax;
+  overflow: hidden;
+}

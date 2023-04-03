@@ -1,3 +1,5 @@
+@use "@styles/abstracts/theme" as *;
+
 @mixin noselect {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -5,4 +7,22 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+@mixin avatar($size: 4em) {
+  width: $size;
+  height: $size;
+  border-radius: 100%;
+  position: relative;
+  overflow: hidden;
+
+  & img {
+    object-fit: cover;
+  }
+}
+
+@mixin section {
+  border: 2px solid rgba($text, 0.4);
+  border-radius: 0.5rem;
+  padding: 1em;
 }

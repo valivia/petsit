@@ -1,0 +1,25 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  @include section;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1em;
+
+  width: min(100%, 40em);
+
+  & h2 {
+    text-align: center;
+    font-weight: 400;
+  }
+}
+
+.avatar {
+  margin-top: -4em;
+  @include avatar(6em);
+}
+
+.info {
+  text-align: center;
+}
