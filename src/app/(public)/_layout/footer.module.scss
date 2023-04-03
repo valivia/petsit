@@ -1,0 +1,11 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  margin-top: 2em;
+  width: 100%;
+  background-color: rgba($primary, 0.3);
+  box-shadow: 0 0 0.2em 0.6em rgba($primary, 0.3);
+}
