@@ -23,7 +23,25 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string
     })
 
-  ]
+  ],
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      if (account) {
+        token.id = account.id
+      }
+      return token
+    },
+    async session({ session, token, user }) {
+
+      if (session.user) {
+        session.user.id = user.id;
+        session.user.firstName = user.firstName;
+        session.user.lastName = user.lastName;
+      }
+
+      return session
+    }
+  }
 }
 
 export default NextAuth(authOptions)

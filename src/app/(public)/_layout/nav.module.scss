@@ -9,6 +9,8 @@ $padding: 0.5rem;
   height: calc($height + $padding);
   padding-inline: 1.2em;
 
+  width: 100%;
+
   position: sticky;
   z-index: $z-sticky;
   top: 0;
@@ -69,9 +71,10 @@ $padding: 0.5rem;
 
 .avatar {
   & > a {
+    $size: Clamp(2rem, 2vw, 2.5rem);
     position: relative;
-    width: 3em;
-    height: 3em;
+    width: $size;
+    height: $size;
 
     border-radius: 100vmin;
     overflow: hidden;
