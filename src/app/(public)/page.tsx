@@ -1,12 +1,16 @@
 import { JobStatus } from "@prisma/client";
 import styles from "./page.module.scss";
-import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { Jobs } from "./user/[id]/_components/jobs";
 
 const getJobs = async () => {
+
   const jobs = await prisma.job.findMany({
     where: {
-      status: JobStatus.PENDING,
+      status: JobStatus.OPEN,
+    },
+    include: {
+      pets: true,
     },
   });
 
@@ -18,21 +22,7 @@ export default async function Page() {
 
   return (
     <main className={styles.main}>
-      <section>
-        <h1>Jobs</h1>
-        <div>
-
-          {jobs.map((job) =>
-            <Link href={`/job/${job.id}`}>
-              <article>
-                <h2>{job.title}</h2>
-
-              </article>
-            </Link>
-          )}
-
-        </div>
-      </section>
+      <Jobs jobs={jobs} />
     </main >
   );
 }

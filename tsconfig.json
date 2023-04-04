@@ -27,11 +27,17 @@
       "@/*": [
         "./src/*"
       ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
       "@public/*": [
         "./src/public/*"
       ],
       "@structs/*": [
-        "./src/structs/*"
+        "./src/types/*"
       ],
       "@styles/*": [
         "./src/styles/*"

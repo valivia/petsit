@@ -1,0 +1,15 @@
+@use "@styles/abstracts" as *;
+
+.main {
+
+  & .title {
+    font-weight: 400;
+    padding-bottom: 0.5em;
+  }
+}
+
+.jobs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}

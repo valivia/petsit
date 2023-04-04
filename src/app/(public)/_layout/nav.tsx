@@ -4,8 +4,9 @@ import styles from "./nav.module.scss";
 import dict from "@/dictionaries/en.json";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { Session } from "next-auth";
 
-export const Nav = ({ session }) => {
+export const Nav = ({ session }: { session: Session | null }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export const Nav = ({ session }) => {
 
         {session ?
           <li className={styles.avatar}>
-            <Link href={"/"} aria-label="">
+            <Link href={`/user/${session.user?.id}`} aria-label="">
               <Image src={session.user?.image || ""} alt="" fill />
             </Link>
           </li>

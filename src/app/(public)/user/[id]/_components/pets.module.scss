@@ -1,0 +1,17 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  width: 100%;
+
+  & .title {
+    font-weight: 400;
+    padding-bottom: 0.5em;
+  }
+}
+
+.pets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+
+}

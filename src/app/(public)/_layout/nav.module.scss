@@ -1,13 +1,13 @@
 @use "@styles/abstracts" as *;
 
-$height: 3.5rem;
-$padding: 0.5rem;
-
 .main {
   @include noselect;
-  padding-top: $padding;
-  height: calc($height + $padding);
+  font-size: clamp(1rem, 3vw, 1.4rem);
+
+  padding-top: 0.5em;
   padding-inline: 1.2em;
+
+  width: 100%;
 
   position: sticky;
   z-index: $z-sticky;
@@ -43,11 +43,11 @@ $padding: 0.5rem;
   align-items: center;
 
   // Font
-  font-size: Clamp(1rem, 2vw, 1.4rem);
+  padding-block: 0.2em;
+  font-size: 1em;
 
   font-weight: 300;
   text-align: center;
-  text-transform: uppercase;
 }
 
 .spacer {
@@ -69,9 +69,10 @@ $padding: 0.5rem;
 
 .avatar {
   & > a {
+    $size: 1.8em;
     position: relative;
-    width: 3em;
-    height: 3em;
+    width: $size;
+    height: $size;
 
     border-radius: 100vmin;
     overflow: hidden;
