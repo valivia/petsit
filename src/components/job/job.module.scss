@@ -1,0 +1,26 @@
+@use "@styles/abstracts" as *;
+
+.wrapper {
+  flex-grow: 1;
+  @include section;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 3em;
+}
+
+.info {
+  text-transform: capitalize;
+}
+
+.pets {
+  margin-top: 1.7em;
+  display: flex;
+  flex-direction: column;
+}
+
+.pet {
+  @include avatar(3em);
+  margin-top: -2em;
+}

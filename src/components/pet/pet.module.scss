@@ -1,0 +1,32 @@
+@use "@styles/abstracts" as *;
+$size: 4rem;
+$offset: 1.5rem;
+
+.main {
+  width: min(30ch, 100%);
+  flex-grow: 1;
+}
+
+.header {
+  padding-left: 1em;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.4em;
+
+  & .title {
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+}
+
+.avatar {
+  @include avatar($size);
+  margin-bottom: -$offset;
+}
+
+.content {
+  @include section;
+  padding-top: $offset;
+  text-transform: capitalize;
+}
+

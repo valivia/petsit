@@ -1,7 +1,6 @@
 @use "@styles/abstracts" as *;
 
 .main {
-  width: 100%;
 
   & .title {
     font-weight: 400;
@@ -9,9 +8,8 @@
   }
 }
 
-.pets {
+.jobs {
   display: flex;
   flex-wrap: wrap;
   gap: 1em;
-
 }

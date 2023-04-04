@@ -1,12 +1,10 @@
 import styles from "./profile.module.scss";
 import Image from "next/image";
 import Prisma from "@prisma/client";
+import { getDisplayName } from "@/lib/getDisplayName";
 
 export const Profile = ({ user }: { user: Prisma.User }) => {
-  // Name
-  let name = user.firstName;
-  if (user.lastName) name += ` ${user.lastName}`;
-  if (!name) name = user.name || user.id;
+  const name = getDisplayName(user);
 
   return (
     <section className={styles.main}>

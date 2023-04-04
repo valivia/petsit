@@ -15,6 +15,7 @@
   border-radius: 100%;
   position: relative;
   overflow: hidden;
+  border: 2px solid rgba($text, 0.4);
 
   & img {
     object-fit: cover;

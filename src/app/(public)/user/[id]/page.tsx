@@ -6,27 +6,30 @@ import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Pets } from "./_components/pets";
 import { Profile } from "@/components/user/profile";
+import { Jobs } from "./_components/jobs";
 
 const getData = async (id: string) => {
-  return await prisma.user.findUnique({ where: { id }, include: { pets: true } })
+  const user = await prisma.user.findUnique({ where: { id }, include: { pets: true } });
+  const jobs = await prisma.job.findMany({ where: { userId: id }, include: { pets: true } });
+  return { user, jobs };
 }
 
 export default async function Page({ params }: { params: Params }) {
 
+
   const session = await getServerSession(authOptions);
 
   const data = await getData(params.id);
-  if (!data) notFound();
+  if (!data.user) notFound();
 
   return (
     <main className={styles.main}>
-      <Profile user={data} />
 
-      <Pets pets={data?.pets} />
+      <Profile user={data.user} />
 
-      <section className={styles.section}>
-        <h2>Jobs</h2>
-      </section>
+      <Pets pets={data.user.pets} />
+
+      <Jobs jobs={data.jobs} />
 
     </main >
   );
