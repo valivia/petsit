@@ -1,0 +1,22 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  flex-grow: 999;
+
+  & p {
+    max-width: 70ch;
+  }
+}
+
+.title {
+  @include header1;
+  padding-left: 0.5em;
+}
+
+.content {
+  @include section;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
