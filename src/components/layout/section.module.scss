@@ -1,0 +1,35 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  @include header2;
+}
+
+.title,
+.add {
+  font-size: 1em;
+  font-weight: inherit;
+}
+
+.add {
+  background-color: transparent;
+  border: none;
+  color: currentColor;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+
+  transform: none;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-0.1em);
+  }
+}

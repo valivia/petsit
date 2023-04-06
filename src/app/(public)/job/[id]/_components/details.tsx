@@ -1,6 +1,7 @@
 import { formatDate } from "@/lib/formatDate";
 import styles from "./details.module.scss";
 import Prisma from "@prisma/client";
+import { formatJobType } from "@/lib/formatJobType";
 
 interface DetailProps {
   job: Prisma.Job;
@@ -16,6 +17,12 @@ export const Details = ({ job }: DetailProps) => {
   return (
     <table className={styles.main}>
       <tbody>
+
+        {/* Type */}
+        <tr>
+          <th>Type</th>
+          <td>{formatJobType(job.type)}</td>
+        </tr>
 
         {/* Rate */}
         {job.rate &&

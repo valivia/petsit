@@ -14,31 +14,31 @@ export const Job = ({ job }: JobProps) => {
       ? Math.round((job.endDate.getTime() - job.startDate.getTime()) / 1000 / 60 / 60)
       : 0;
 
-  return (
-    <section className={styles.main}>
+    return (
+      <section className={styles.main}>
 
-      <h1 className={styles.title}>{job.title}</h1>
+        <h1 className={styles.title}>{job.title}</h1>
 
-      <div className={styles.content}>
+        <div className={styles.content}>
 
-        {/* Description */}
-        <p className={styles.description}>
-          {job.description}
-        </p>
+          {/* Description */}
+          <p className={styles.description}>
+            {job.description}
+          </p>
 
-        {/* Notes */}
-        {job.notes &&
-          <div className={styles.description}>
-            <h2>Notes</h2>
-            <p>{job.notes}</p>
-          </div>
-        }
+          {/* Notes */}
+          {job.notes &&
+            <div className={styles.description}>
+              <h2>Notes</h2>
+              <p>{job.notes}</p>
+            </div>
+          }
 
-        {/* Details */}
-        <Details job={job} />
+          {/* Details */}
+          <Details job={job} />
 
-      </div>
+        </div>
 
-    </section>
-  );
-};
+      </section>
+    );
+  };
