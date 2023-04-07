@@ -1,0 +1,51 @@
+@use "@styles/abstracts" as *;
+
+$size: clamp(10rem, 20vw, 20rem);
+
+.item {
+  flex: 0 0 auto;
+  position: relative;
+  width: Calc(1.777 * $size);
+  height: $size;
+
+  & img {
+    object-fit: cover;
+    border-radius: $borderRadius;
+  }
+
+  & .delete {
+    display: none;
+  }
+
+  &:hover,
+  &:focus-within {
+    & .delete {
+      display: block;
+    }
+  }
+}
+
+.delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+
+  padding: 0.5rem;
+  background-color: transparent;
+  border: none;
+  color: $text;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-within {
+    color: red;
+  }
+
+  & svg {
+    filter: drop-shadow(0 0 2px black);
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: currentColor;
+  }
+}

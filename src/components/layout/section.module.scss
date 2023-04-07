@@ -25,11 +25,4 @@
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
-
-  transform: none;
-  transition: transform 0.2s ease-in-out;
-
-  &:hover {
-    transform: translateY(-0.1em);
-  }
 }

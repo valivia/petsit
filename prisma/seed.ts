@@ -44,7 +44,7 @@ async function createJob(user: User) {
       startDate: faker.date.future(),
       endDate: faker.date.future(),
       type: randomEnum(JobType),
-      userId: user.id,
+      authorId: user.id,
       pets: {
         create: randomAmount(1, 3).map(() => ({
           name: faker.name.firstName(),

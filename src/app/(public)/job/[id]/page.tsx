@@ -7,7 +7,7 @@ import { Job } from "./_components/job";
 import { Pets } from "@/components/pet/pets";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
-import Prisma, { JobStatus } from "@prisma/client";
+import { JobStatus } from "@prisma/client";
 import { CreateRequest } from "./_components/createRequest";
 
 
@@ -15,36 +15,36 @@ async function getData(id: string) {
   return await prisma.job.findUnique({
     where: { id },
     include: {
-      user: true,
+      author: true,
       pets: true,
     },
   });
 }
 
 export default async function Page({ params }: { params: Params }) {
-  const data = await getData(params.id);
-  if (!data) notFound();
+  const job = await getData(params.id);
+  if (!job) notFound();
 
   const session = await getServerSession(authOptions);
   if (
-    (data.status === JobStatus.COMPLETED || data.status === JobStatus.CANCELLED) &&
-    (session?.user?.id !== data.user.id)
+    (job.status === JobStatus.COMPLETED || job.status === JobStatus.CANCELLED) &&
+    (session?.user?.id !== job.author.id)
   ) notFound();
 
   return (
     <main className={styles.main}>
 
-      <Job job={data} />
+      <Job job={job} />
 
-      <Profile user={data.user} />
+      <Profile user={job.author} />
 
       {session?.user &&
-        session?.user?.id !== data.user.id &&
-        data.status === JobStatus.OPEN &&
-        <CreateRequest id={data.id} />
+        session?.user?.id !== job.author.id &&
+        job.status === JobStatus.OPEN &&
+        <CreateRequest id={job.id} />
       }
 
-      <Pets pets={data.pets} />
+      <Pets pets={job.pets} />
 
     </main >
   );

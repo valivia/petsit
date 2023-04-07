@@ -4,18 +4,18 @@ import { getServerSession } from "next-auth";
 import styles from "./page.module.scss";
 import { notFound, redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
-import { Pets } from "./_components/pets";
+import { Pets } from "@components/pet/pets";
 import { Profile } from "@/components/user/profile";
-import { Jobs } from "./_components/jobs";
+import { Jobs } from "@components/job/jobs";
+import { Environment } from "./_components/environment ";
 
 const getData = async (id: string) => {
-  const user = await prisma.user.findUnique({ where: { id }, include: { pets: true } });
-  const jobs = await prisma.job.findMany({ where: { userId: id }, include: { pets: true } });
+  const user = await prisma.user.findUnique({ where: { id }, include: { pets: true, assets: true } });
+  const jobs = await prisma.job.findMany({ where: { authorId: id }, include: { pets: true } });
   return { user, jobs };
 }
 
 export default async function Page({ params }: { params: Params }) {
-
 
   const session = await getServerSession(authOptions);
 
@@ -26,6 +26,8 @@ export default async function Page({ params }: { params: Params }) {
     <main className={styles.main}>
 
       <Profile user={data.user} />
+
+      <Environment assets={data.user.assets} user={data.user} />
 
       <Pets pets={data.user.pets} />
 

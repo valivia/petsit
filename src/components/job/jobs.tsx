@@ -4,7 +4,7 @@ import { Job } from "@/components/job/job";
 import { Section } from "../layout/section";
 
 interface JobProps {
-  jobs: Prisma.Job[];
+  jobs: (Prisma.Job & { pets: Prisma.Pet[]; })[]
 }
 
 export const Jobs = ({ jobs }: JobProps) => {
