@@ -2,7 +2,7 @@
   background: #0f0c29; /* fallback for old browsers */
   background: -webkit-linear-gradient(3deg, #24243e, #302b63, #0f0c29); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
-    3deg,
+    70deg,
     #24243e,
     #302b63,
     #0f0c29
@@ -12,4 +12,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  height: 100%;
 }

@@ -5,6 +5,9 @@ $offset: 1.5rem;
 .main {
   width: min(30ch, 100%);
   flex-grow: 1;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .header {
@@ -28,5 +31,6 @@ $offset: 1.5rem;
   @include section;
   padding-top: $offset;
   text-transform: capitalize;
+  flex-grow: 1;
 }
 

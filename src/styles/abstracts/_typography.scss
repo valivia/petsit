@@ -1,2 +1,18 @@
 $font: "raleway", Helvetica, sans-serif;
 $font-size: 16px;
+
+@mixin title {
+  font-weight: 400;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+}
+
+@mixin header1 {
+  font-weight: 400;
+  font-size: clamp(1.25rem, 5vw, 2rem);
+}
+
+@mixin header2 {
+  font-weight: 400;
+  font-size: clamp(1.1rem, 5vw, 1.5rem);
+  padding-bottom: 0.5em;
+}

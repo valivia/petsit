@@ -1,7 +1,7 @@
 import { JobStatus } from "@prisma/client";
 import styles from "./page.module.scss";
 import { prisma } from "@/lib/prisma";
-import { Jobs } from "./user/[id]/_components/jobs";
+import { Jobs } from "../../components/job/jobs";
 
 const getJobs = async () => {
 

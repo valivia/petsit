@@ -1,0 +1,8 @@
+@use "@styles/abstracts" as *;
+
+.pets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+
+}

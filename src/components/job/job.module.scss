@@ -3,6 +3,16 @@
 .wrapper {
   flex-grow: 1;
   @include section;
+
+  transform: scale(1);
+  transition: box-shadow 100ms ease-in-out, transform 100ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    outline: transparent;
+    box-shadow: 0 0 0.5em 0px $text;
+    transform: scale(1.01);
+  }
 }
 
 .main {

@@ -1,0 +1,19 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  margin: 0;
+  padding: 0;
+  padding-bottom: 1rem;
+
+  width: 100%;
+  overflow-x: auto;
+
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+
+  $mask: linear-gradient(90deg, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 1) 95%, rgba(249, 249, 249, 0) 100%);
+
+  -webkit-mask-image: $mask;
+  mask-image: $mask;
+}

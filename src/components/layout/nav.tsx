@@ -5,9 +5,15 @@ import dict from "@/dictionaries/en.json";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Session } from "next-auth";
+import { VscBell, VscBellDot } from "react-icons/vsc";
+import useSWR from "swr";
+import { fetcher } from "@/lib/swr";
 
 export const Nav = ({ session }: { session: Session | null }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { data, error, isLoading } = useSWR("/api/request", fetcher);
+
+  console.log({ data, error, isLoading });
 
   useEffect(() => {
     function handleScroll() {
@@ -33,6 +39,15 @@ export const Nav = ({ session }: { session: Session | null }) => {
         </li>
 
         <div className={styles.spacer}></div>
+
+
+        {session &&
+          <li className={styles.button}>
+            <Link href={"/request"} aria-label="Requests">
+              {data && data.length > 0 ? <VscBellDot /> : <VscBell />}
+            </Link>
+          </li>
+        }
 
         {session ?
           <li className={styles.avatar}>

@@ -1,0 +1,13 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  border-collapse: collapse;
+
+  & th {
+    text-align: start;
+  }
+
+  & tr {
+    border-bottom: 1px solid rgba($text, 0.4);
+  }
+}

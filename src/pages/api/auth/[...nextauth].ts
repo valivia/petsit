@@ -3,9 +3,7 @@ import DiscordProvider from 'next-auth/providers/discord'
 import SpotifyProvider from "next-auth/providers/spotify";
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),

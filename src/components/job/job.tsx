@@ -9,7 +9,7 @@ import { BiTask } from "react-icons/bi";
 import { BsCalendarDate } from "react-icons/bs";
 import { formatDate } from "@/lib/formatDate";
 
-interface JobProps {
+interface JobProps extends Editable {
   job: (Prisma.Job & { pets: Prisma.Pet[]; })
 }
 
