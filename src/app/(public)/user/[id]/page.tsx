@@ -29,7 +29,7 @@ export default async function Page({ params }: { params: Params }) {
 
       <Environment assets={data.user.assets} user={data.user} />
 
-      <Pets pets={data.user.pets} />
+      <Pets pets={data.user.pets} user={data.user} session={session} />
 
       <Jobs jobs={data.jobs} />
 

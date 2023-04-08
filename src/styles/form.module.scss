@@ -1,0 +1,26 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  display: flex;
+  flex-direction: column;
+
+  & input,
+  & textarea,
+  & select {
+    color: $text;
+    background-color: transparent;
+
+    border: 1px solid rgba($text, 0.4);
+    border-radius: 0.3em;
+
+    padding: 1em;
+    margin-bottom: 1em;
+
+    resize: none;
+
+    &:focus {
+      outline: transparent;
+      outline: 3px solid rgba($text, 0.4);
+    }
+  }
+}

@@ -7,19 +7,20 @@ import { Modal } from "./modal";
 
 interface Props {
   title: string;
+  modalTitle?: string;
   addComponent?: JSX.Element;
   isAllowed?: boolean;
 }
 
 
-export const Section = ({ title, addComponent, isAllowed, children }: PropsWithChildren<Props>) => {
+export const Section = ({ title, addComponent, modalTitle, isAllowed, children }: PropsWithChildren<Props>) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <section className={styles.main}>
 
       {addComponent &&
-        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <Modal isOpen={isOpen} setIsOpen={setIsOpen} title={modalTitle}>
           {addComponent}
         </Modal>
       }
