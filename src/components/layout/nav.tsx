@@ -13,8 +13,6 @@ export const Nav = ({ session }: { session: Session | null }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { data, error, isLoading } = useSWR("/api/request", fetcher);
 
-  console.log({ data, error, isLoading });
-
   useEffect(() => {
     function handleScroll() {
       const scrollTop = window.pageYOffset;

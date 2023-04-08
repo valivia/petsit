@@ -4,6 +4,7 @@ import { Gallery } from "@/components/gallery/gallery";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { asSyncComponent } from "@/lib/async";
+import { AddImage } from "./addImage";
 
 interface Props {
   assets: Prisma.Asset[];
@@ -16,7 +17,7 @@ export const Environment = asSyncComponent(
     const isAllowed = session?.user?.id === user.id;
 
     return (
-      <Section title="Environment" addComponent={<div></div>} isAllowed={isAllowed}>
+      <Section title="Environment" addComponent={<AddImage userId={user.id} />} isAllowed={isAllowed}>
         {assets.length === 0 &&
           (isAllowed
             ? <p>You havent uploaded any pictures yet. Please consider uploading some so that others can see how comfy and pet friendly your place is!</p>

@@ -8,6 +8,7 @@ import { BsFillCreditCardFill } from "react-icons/bs";
 import { BiTask } from "react-icons/bi";
 import { BsCalendarDate } from "react-icons/bs";
 import { formatDate } from "@/lib/formatDate";
+import { Editable } from "@/types/editable";
 
 interface JobProps extends Editable {
   job: (Prisma.Job & { pets: Prisma.Pet[]; })

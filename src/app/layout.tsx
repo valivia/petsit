@@ -17,6 +17,7 @@ export default function RootLayout({ children, session }: Props) {
         <SessionProvider session={session}>
           {children}
         </SessionProvider>
+        <div id="modals" />
       </body>
     </html>
   )

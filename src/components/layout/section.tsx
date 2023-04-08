@@ -1,8 +1,8 @@
-import { getServerSession } from "next-auth";
+"use client";
 import styles from "./section.module.scss";
-import { PropsWithChildren } from "react";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { PropsWithChildren, useState } from "react";
 import { asSyncComponent } from "@/lib/async";
+import { Modal } from "./modal";
 
 
 interface Props {
@@ -12,19 +12,30 @@ interface Props {
 }
 
 
-export const Section = asSyncComponent(
-  async ({ title, addComponent, isAllowed, children }: PropsWithChildren<Props>) => {
+export const Section = ({ title, addComponent, isAllowed, children }: PropsWithChildren<Props>) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-    return (
-      <section className={styles.main}>
+  return (
+    <section className={styles.main}>
 
-        <div className={styles.container}>
-          <h1 className={styles.title}>{title}</h1>
-          {addComponent && isAllowed && <button className={styles.add}>+</button>}
-        </div>
+      {addComponent &&
+        <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+          {addComponent}
+        </Modal>
+      }
 
-        {children}
-      </section>
-    );
-  }
-);
+      <div className={styles.container}>
+        <h1 className={styles.title}>{title}</h1>
+        {addComponent && isAllowed &&
+          <button
+            onClick={() => setIsOpen(true)}
+            className={styles.add}
+          >
+            +
+          </button>}
+      </div>
+
+      {children}
+    </section>
+  );
+}
