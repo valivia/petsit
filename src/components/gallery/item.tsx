@@ -12,9 +12,6 @@ interface Props {
 export const Item = ({ id, author }: Props) => {
   const session = useSession();
 
-  // const src = (asset: Prisma.Asset) => `/assets/${asset.id}.jpg`
-  const src = (id: string) => "/assets/test.jpg"
-
   const deleteAsset = async () => {
     if (!confirm("Are you sure you want to delete this asset?")) return;
     const response = await fetch(`/api/asset/${id}`, { method: "DELETE" });
@@ -25,7 +22,7 @@ export const Item = ({ id, author }: Props) => {
 
   return (
     <div className={styles.item}>
-      <Image src={src(id)} alt="" fill />
+      <Image src={`/assets/${id}`} alt="" fill />
 
       {session.data?.user.id === author &&
         <button

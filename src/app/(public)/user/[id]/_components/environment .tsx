@@ -17,7 +17,7 @@ export const Environment = asSyncComponent(
     const isAllowed = session?.user?.id === user.id;
 
     return (
-      <Section title="Environment" addComponent={<AddImage userId={user.id} />} isAllowed={isAllowed}>
+      <Section title="Environment" addComponent={<AddImage />} isAllowed={isAllowed}>
         {assets.length === 0 &&
           (isAllowed
             ? <p>You havent uploaded any pictures yet. Please consider uploading some so that others can see how comfy and pet friendly your place is!</p>
