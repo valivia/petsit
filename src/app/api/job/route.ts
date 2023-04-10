@@ -22,6 +22,7 @@ export const jobSchema = z.object({
   endDate: z.coerce.date().optional(),
 
   type: z.nativeEnum(JobType),
+  pets: z.array(z.string()),
 });
 
 export async function POST(request: Request) {
@@ -39,6 +40,7 @@ export async function POST(request: Request) {
   const data = await prisma.job.create({
     data: {
       ...body.data,
+      pets: { connect: body.data.pets.map(id => ({ id })) },
       author: { connect: { id: session.user?.id } },
     }
   })

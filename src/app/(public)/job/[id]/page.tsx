@@ -9,6 +9,8 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { JobStatus } from "@prisma/client";
 import { CreateRequest } from "./_components/createRequest";
+import { Details } from "./_components/details";
+import { Status } from "./_components/status";
 
 
 async function getData(id: string) {
@@ -16,7 +18,9 @@ async function getData(id: string) {
     where: { id },
     include: {
       author: true,
+      acceptedBy: true,
       pets: true,
+      requests: true,
     },
   });
 }
@@ -33,18 +37,17 @@ export default async function Page({ params }: { params: Params }) {
 
   return (
     <main className={styles.main}>
-
-      <Job job={job} />
-
       <Profile user={job.author} />
 
-      {session?.user &&
-        session?.user?.id !== job.author.id &&
-        job.status === JobStatus.OPEN &&
-        <CreateRequest id={job.id} />
-      }
+      <Job job={job}>
+        <Status job={job} session={session} />
+      </Job>
 
-      <Pets pets={job.pets} user={job.author} session={session} />
+      {/* Details */}
+      <Details job={job} />
+
+
+      <Pets pets={job.pets} />
 
     </main >
   );

@@ -14,8 +14,6 @@ interface Props extends Editable {
 
 export const Pet = asSyncComponent(async ({ pet, editable }: Props) => {
 
-  console.log({ pet })
-
   return (
     <article key={pet.id} className={styles.main}>
 
@@ -23,7 +21,7 @@ export const Pet = asSyncComponent(async ({ pet, editable }: Props) => {
       <div className={styles.header}>
 
         <figure className={styles.avatar}>
-          <Image src={`/avatars/${pet.avatar}`} alt="" fill />
+          <Image src={`/avatars/${pet.avatar ?? "default.jpg"}`} alt="" fill />
         </figure>
 
         <h2 className={styles.title}>{pet.name}</h2>
@@ -40,12 +38,12 @@ export const Pet = asSyncComponent(async ({ pet, editable }: Props) => {
         }
 
         <div className={styles.info}>
-          <p><BiDna /> {pet.breed}</p>
+          <p><BiDna /> {pet.breed ?? pet.type}</p>
           {pet.birthDate && <p><BiCake /> {formatDate(pet.birthDate)}</p>}
         </div>
 
         <div className={styles.bio}>
-          <p>{pet.bio?.substring(0, 128)}...</p>
+          <p>{pet.bio?.substring(0, 96)}</p>
         </div>
 
       </div>

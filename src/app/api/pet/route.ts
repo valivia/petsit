@@ -12,6 +12,19 @@ export const petSchema = z.object({
   type: z.nativeEnum(petType),
 });
 
+export async function GET(request: Request) {
+  const session = await getServerSession(authOptions);
+  if (!session) { return new Response("Unauthorized", { status: 401 }); }
+
+  const data = await prisma.pet.findMany({
+    where: {
+      userId: session.user?.id,
+    }
+  })
+
+  return NextResponse.json(data);
+}
+
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
   if (!session) { return new Response("Unauthorized", { status: 401 }); }

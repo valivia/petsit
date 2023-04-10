@@ -4,14 +4,17 @@ import form from "@styles/form.module.scss"
 import Prisma, { JobType, RateType, petType } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation"
+import useSWR from "swr";
+import { fetcher } from "@/lib/swr";
 
 interface Props {
-  defaultValues?: Prisma.Job;
+  defaultValues?: Prisma.Job & { pets: Prisma.Pet[] };
 }
 
 export const ModifyJob = ({ defaultValues }: Props) => {
-  const { register, handleSubmit } = useForm({ defaultValues });
+  const { register, handleSubmit, watch } = useForm({ defaultValues: { ...defaultValues, pets: defaultValues?.pets.map(x => x.id) } });
   const router = useRouter();
+  const { data: pets, isLoading } = useSWR("/api/pet", fetcher);
 
   const onSubmit = async (body: Record<string, unknown>) => {
     const response = await fetch(`/api/job${defaultValues ? `/${defaultValues.id}` : ""}`, {
@@ -45,7 +48,6 @@ export const ModifyJob = ({ defaultValues }: Props) => {
     }
   };
 
-
   return (
     <form className={form.main} onSubmit={handleSubmit(onSubmit)}>
 
@@ -62,7 +64,7 @@ export const ModifyJob = ({ defaultValues }: Props) => {
 
       <label htmlFor="notes">notes</label>
       <textarea
-        {...register("notes")}
+        {...register("notes", { required: true })}
       />
 
       <label htmlFor="location">location</label>
@@ -74,7 +76,7 @@ export const ModifyJob = ({ defaultValues }: Props) => {
       <label htmlFor="rate">rate</label>
       <input
         type="number"
-        step="0.1"
+        step="0.01"
 
         {...register("rate", { required: true })}
       />
@@ -88,16 +90,15 @@ export const ModifyJob = ({ defaultValues }: Props) => {
 
       <label htmlFor="startDate">Start Date</label>
       <input
-        type="date"
-        {...register("startDate", { valueAsDate: true, required: true })}
+        type="datetime-local"
+        {...register("startDate", { required: true })}
       />
 
       <label htmlFor="endDate">End Date</label>
       <input
-        type="date"
-        {...register("endDate", { valueAsDate: true })}
+        type="datetime-local"
+        {...register("endDate", {})}
       />
-
 
       <label htmlFor="type">Job Type</label>
       <select {...register("type")} >
@@ -105,6 +106,14 @@ export const ModifyJob = ({ defaultValues }: Props) => {
           <option key={key} value={key}>{key}</option>
         ))}
       </select>
+
+      <label htmlFor="pets">Pets</label>
+      <select {...register("pets")} multiple>
+        {pets?.map((pet: Prisma.Pet) => (
+          <option key={pet.id} value={pet.id}>{pet.name}</option>
+        ))}
+      </select>
+
 
       <button type="submit">{defaultValues ? "Update" : "Add"}</button>
       {defaultValues &&

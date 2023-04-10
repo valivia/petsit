@@ -22,6 +22,17 @@ export async function POST(request: NextRequest) {
   const { jobId } = await request.json();
   if (!jobId) { return new Response("Missing jobId", { status: 400 }); }
 
+  const job = await prisma.job.findUnique({ where: { id: jobId } });
+  if (!job) { return new Response("Job not found", { status: 404 }); }
+
+  if (job.authorId === session.user.id) {
+    return new Response("You can't request your own job", { status: 400 });
+  }
+
+  if (job.status !== "OPEN") {
+    return new Response("Job is not open for requests", { status: 400 });
+  }
+
   const data = await prisma.request.create({
     data: { userId: session.user.id, jobId }
   });

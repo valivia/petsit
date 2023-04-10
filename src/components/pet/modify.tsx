@@ -10,9 +10,8 @@ interface Props {
 }
 
 export const ModifyPet = ({ defaultValues }: Props) => {
-  const { register, handleSubmit } = useForm({ defaultValues });
+  const { register, handleSubmit, getValues } = useForm({ defaultValues });
   const router = useRouter();
-  console.log({ defaultValues })
 
   const onSubmit = async (body: Record<string, unknown>) => {
     const response = await fetch(`/api/pet${defaultValues ? `/${defaultValues.id}` : ""}`, {
@@ -51,7 +50,7 @@ export const ModifyPet = ({ defaultValues }: Props) => {
 
   const deleteEntry = async () => {
 
-    if (!confirm("Are you sure you want to delete this pet from your profile?")) return;
+    if (!confirm(`Are you sure you want to delete ${getValues("name")} from your profile?`)) return;
     if (!defaultValues?.id) return alert("No pet selected");
 
     const response = await fetch(`/api/pet/${defaultValues.id}`, {
@@ -88,7 +87,8 @@ export const ModifyPet = ({ defaultValues }: Props) => {
 
         <label htmlFor="bio">Bio</label>
         <textarea
-          {...register("bio", { required: true })}
+          maxLength={96}
+          {...register("bio", { required: true, maxLength: 96 })}
         />
 
         <label htmlFor="birthDate">Birth Date</label>

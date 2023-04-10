@@ -46,13 +46,21 @@ export async function PUT(request: Request, { params }: Params) {
     return new Response(body.error.message, { status: 400 });
   }
 
-  const data = await prisma.job.updateMany({
+  const check = await prisma.job.findUnique({
     where: {
-      id,
-      authorId: session.user?.id,
-    },
+      id: id,
+    }
+  });
+
+  if (!check || check.authorId !== session.user?.id) {
+    return new Response("Job not found", { status: 404 });
+  }
+
+  const data = await prisma.job.update({
+    where: { id },
     data: {
       ...body.data,
+      pets: { connect: body.data.pets.map(id => ({ id })) },
     }
   })
 

@@ -2,6 +2,7 @@ import { formatDate } from "@/lib/formatDate";
 import styles from "./details.module.scss";
 import Prisma from "@prisma/client";
 import { formatJobType } from "@/lib/formatJobType";
+import moment, { duration } from "moment";
 
 interface DetailProps {
   job: Prisma.Job;
@@ -9,10 +10,7 @@ interface DetailProps {
 
 export const Details = ({ job }: DetailProps) => {
 
-  const hours =
-    job.startDate && job.endDate
-      ? Math.round((job.endDate.getTime() - job.startDate.getTime()) / 1000 / 60 / 60)
-      : 0;
+
 
   return (
     <table className={styles.main}>
@@ -36,7 +34,7 @@ export const Details = ({ job }: DetailProps) => {
         {job.startDate && job.endDate &&
           <tr>
             <th>Duration</th>
-            <td>{hours} hours</td>
+            <td>{duration(moment(job.endDate).diff(moment(job.startDate))).humanize()}</td>
           </tr>
         }
 

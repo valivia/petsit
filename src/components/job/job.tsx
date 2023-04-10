@@ -18,6 +18,10 @@ interface JobProps extends Editable {
 
 export const Job = ({ job, editable }: JobProps) => {
 
+  const convertDate = (d: Date) => {
+    return (new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString()).slice(0, -1);
+  }
+
   return (
     <Link href={`/job/${job.id}`} className={styles.wrapper}>
       <article key={job.id} className={styles.main}>
@@ -26,8 +30,8 @@ export const Job = ({ job, editable }: JobProps) => {
           <Edit title="Edit Job">
             <ModifyJob defaultValues={JSON.parse(JSON.stringify({
               ...job,
-              startDate: job.startDate?.toLocaleDateString('en-CA'),
-              endDate: job.endDate?.toLocaleDateString('en-CA'),
+              startDate: convertDate(job.startDate),
+              endDate: job.endDate ? convertDate(job.endDate) : null,
             }))} />
           </Edit>
         }
@@ -44,7 +48,7 @@ export const Job = ({ job, editable }: JobProps) => {
           {job.pets.map(pet => (
             <div key={pet.id} className={styles.pet}>
               <Image
-                src="https://cdn.discordapp.com/attachments/798915150445936750/1091780827467219025/PXL_20230331_131839568.PORTRAIT.jpg"
+                src={`/avatars/${pet.avatar ?? "default.jpg"}`}
                 alt={pet.name}
                 fill
               />

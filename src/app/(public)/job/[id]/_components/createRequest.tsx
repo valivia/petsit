@@ -1,12 +1,14 @@
 "use client"
 import styles from "./createRequest.module.scss";
-import Prisma from "@prisma/client";
+import { useRouter } from "next/navigation";
 
 interface DetailProps {
   id: string
+  disabled?: boolean
 }
 
-export const CreateRequest = ({ id }: DetailProps) => {
+export const CreateRequest = ({ id, disabled }: DetailProps) => {
+  const router = useRouter();
 
   const request = async () => {
     const response = await fetch("/api/request", {
@@ -16,12 +18,18 @@ export const CreateRequest = ({ id }: DetailProps) => {
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
-    console.log(data);
+
+    if (response.ok) {
+      alert("Request sent");
+      router.refresh()
+    } else {
+      alert("Request failed");
+    }
+
   };
 
 
   return (
-    <button className={styles.button} onClick={request}>Request</button>
+    <button disabled={disabled} className={styles.button} onClick={request}>Request</button>
   );
 };
