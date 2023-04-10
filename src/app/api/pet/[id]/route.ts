@@ -35,7 +35,6 @@ export async function PUT(request: Request, { params }: Params) {
   const body = await petSchema.safeParseAsync(requestData);
 
   if (!body.success) {
-    console.log(body.error);
     return new Response(body.error.message, { status: 400 });
   }
 

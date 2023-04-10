@@ -9,6 +9,7 @@ import { Profile } from "@/components/user/profile";
 import { Jobs } from "@components/job/jobs";
 import { Environment } from "./_components/environment ";
 import { Reviews } from "@/components/review/reviews";
+import { JobStatus } from "@prisma/client";
 
 const getData = async (id: string) => {
   const user = await prisma.user.findUnique({
@@ -17,6 +18,7 @@ const getData = async (id: string) => {
       pets: true,
       assets: true,
       jobs: {
+        where: { status: JobStatus.OPEN },
         include: {
           pets: true,
         }

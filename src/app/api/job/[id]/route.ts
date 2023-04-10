@@ -32,7 +32,6 @@ export async function PUT(request: Request, { params }: IdParams) {
   const body = await jobSchema.safeParseAsync(requestData);
 
   if (!body.success) {
-    console.log(body.error);
     return new Response(body.error.message, { status: 400 });
   }
 

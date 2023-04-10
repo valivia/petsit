@@ -23,7 +23,6 @@ export async function POST(req: Request, res: Response) {
   const body = await schema.safeParseAsync(requestData);
 
   if (!body.success) {
-    console.log(body.error);
     return new Response(body.error.message, { status: 400 });
   }
 

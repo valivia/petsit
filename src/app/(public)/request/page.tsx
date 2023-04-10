@@ -36,7 +36,6 @@ export default async function Page() {
   if (!session) return { redirect: { destination: "/api/auth/signin", permanent: false } };
   const { sent, received, active } = await getData(session.user.id);
 
-  console.log({ sent, received });
   return (
     <main className={styles.main}>
       <Requests requests={sent} />

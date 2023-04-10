@@ -33,7 +33,6 @@ export async function POST(request: Request) {
   const body = await jobSchema.safeParseAsync(requestData);
 
   if (!body.success) {
-    console.log(body.error);
     return new Response(body.error.message, { status: 400 });
   }
 

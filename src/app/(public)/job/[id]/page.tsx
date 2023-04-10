@@ -30,10 +30,6 @@ export default async function Page({ params }: { params: Params }) {
   if (!job) notFound();
 
   const session = await getServerSession(authOptions);
-  const isOwner = job.author.id === session?.user.id;
-  const isAcceptedUser = job.acceptedBy?.id === session?.user.id;
-
-  if ((job.status !== JobStatus.OPEN) && !(isOwner || isAcceptedUser)) notFound();
 
   return (
     <main className={styles.main}>
