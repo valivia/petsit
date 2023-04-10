@@ -1,16 +1,10 @@
+import { getSessionAndId } from "@/lib/middleware";
 import { prisma } from "@/lib/prisma";
 
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { JobStatus } from "@prisma/client";
-import { Session, getServerSession } from "next-auth";
+import { Session } from "next-auth";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { NextResponse } from "next/server";
-
-export interface Params {
-  params: {
-    id: string;
-  }
-}
-
 
 const checkOwnership = async (id: string, session: Session) => {
   const request = await prisma.request.findUnique({
@@ -25,20 +19,8 @@ const checkOwnership = async (id: string, session: Session) => {
   return { request };
 }
 
-const checkRequest = async (params: Params["params"]) => {
-  const session = await getServerSession(authOptions);
-  if (!session)
-    return { error: new Response("Unauthorized", { status: 401 }) }
-
-  const id = params.id;
-  if (!id)
-    return { error: new Response("Missing id", { status: 400 }) }
-
-  return { session, id };
-}
-
 export async function DELETE(req: Request, { params }: Params) {
-  const { session, id, error: error1 } = await checkRequest(params);
+  const { session, id, error: error1 } = await getSessionAndId(params);
   if (error1) { return error1; }
 
   const { error: error2 } = await checkOwnership(id, session);
@@ -51,7 +33,7 @@ export async function DELETE(req: Request, { params }: Params) {
 
 
 export async function PUT(req: Request, { params }: Params) {
-  const { session, id, error: error1 } = await checkRequest(params);
+  const { session, id, error: error1 } = await getSessionAndId(params);
   if (error1) { return error1; }
 
   const { request, error: error2 } = await checkOwnership(id, session);
@@ -61,7 +43,7 @@ export async function PUT(req: Request, { params }: Params) {
     prisma.job.update({
       where: { id: request.jobId },
       data: {
-        status: JobStatus.ACCEPTED,
+        status: JobStatus.ONGOING,
         acceptedBy: { connect: { id: request.userId } },
       }
     }),

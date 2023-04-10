@@ -2,30 +2,23 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { petSchema } from "../route";
-
-export interface Params {
-  params: {
-    id: string;
-  }
-}
+import { getSessionAndId } from "@/lib/middleware";
+import Prisma from "@prisma/client";
+import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 
 export async function DELETE(request: Request, { params }: Params) {
-  const session = await getServerSession(authOptions);
-  if (!session) { return new Response("Unauthorized", { status: 401 }); }
+  const { session, id, error } = await getSessionAndId(params)
+  if (error) return error;
 
-  const id = params.id;
-  if (!id) { return new Response("Missing id", { status: 400 }); }
+  const pet = await prisma.pet.findUnique({ where: { id } });
 
-  const data = await prisma.pet.deleteMany({
-    where: {
-      id: id,
-      userId: session.user?.id,
-    }
-  });
+  if (!pet)
+    return new Response("Pet not found", { status: 404 });
 
-  if (data.count === 0) {
-    return new Response("No pets deleted", { status: 404 });
-  }
+  if (pet.userId !== session.user?.id && session.user.role !== Prisma.Role.ADMIN)
+    return new Response("Unauthorized", { status: 401 });
+
+  const data = await prisma.pet.delete({ where: { id } });
 
   return NextResponse.json(data);
 }

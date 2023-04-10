@@ -2,36 +2,26 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { jobSchema } from "../route";
+import { getSessionAndId } from "@/lib/middleware";
+import Prisma from "@prisma/client";
 
-interface Params {
-  params: {
-    id: string;
-  }
-}
+export async function DELETE(request: Request, { params }: IdParams) {
+  const { session, id, error } = await getSessionAndId(params)
+  if (error) return error;
 
-export async function DELETE(request: Request, { params }: Params) {
-  const session = await getServerSession(authOptions);
-  if (!session) { return new Response("Unauthorized", { status: 401 }); }
+  const job = await prisma.job.findUnique({ where: { id } });
 
-  const id = params.id;
-  if (!id) { return new Response("Missing id", { status: 400 }); }
+  if (!job) return new Response("Job not found", { status: 404 });
+  if (job.authorId !== session.user?.id && session.user.role !== Prisma.Role.ADMIN)
+    return new Response("Unauthorized", { status: 401 });
 
-  const data = await prisma.job.deleteMany({
-    where: {
-      id: id,
-      authorId: session.user?.id,
-    }
-  });
-
-  if (data.count === 0) {
-    return new Response("No job deleted", { status: 404 });
-  }
+  const data = await prisma.job.delete({ where: { id } });
 
   return NextResponse.json(data);
 }
 
 
-export async function PUT(request: Request, { params }: Params) {
+export async function PUT(request: Request, { params }: IdParams) {
   const session = await getServerSession(authOptions);
   if (!session) { return new Response("Unauthorized", { status: 401 }); }
 
