@@ -97,6 +97,8 @@ model Pet {
   birthDate DateTime?
   type      petType
 
+  avatar String?
+
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
