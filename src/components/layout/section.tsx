@@ -3,17 +3,17 @@ import styles from "./section.module.scss";
 import { PropsWithChildren, useState } from "react";
 import { asSyncComponent } from "@/lib/async";
 import { Modal } from "./modal";
+import { Editable } from "@/types/editable";
 
 
-interface Props {
+interface Props extends Editable {
   title: string;
   modalTitle?: string;
   addComponent?: JSX.Element;
-  isAllowed?: boolean;
 }
 
 
-export const Section = ({ title, addComponent, modalTitle, isAllowed, children }: PropsWithChildren<Props>) => {
+export const Section = ({ title, addComponent, modalTitle, editable, children }: PropsWithChildren<Props>) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -27,7 +27,7 @@ export const Section = ({ title, addComponent, modalTitle, isAllowed, children }
 
       <div className={styles.container}>
         <h1 className={styles.title}>{title}</h1>
-        {addComponent && isAllowed &&
+        {addComponent && editable &&
           <button
             onClick={() => setIsOpen(true)}
             className={styles.add}

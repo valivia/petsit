@@ -25,6 +25,7 @@ $offset: 1.5rem;
 .avatar {
   @include avatar($size);
   margin-bottom: -$offset;
+  z-index: 2;
 }
 
 .content {
@@ -32,5 +33,6 @@ $offset: 1.5rem;
   padding-top: $offset;
   text-transform: capitalize;
   flex-grow: 1;
+  position: relative;
 }
 

@@ -44,7 +44,7 @@ export default async function Page({ params }: { params: Params }) {
         <CreateRequest id={job.id} />
       }
 
-      <Pets pets={job.pets} />
+      <Pets pets={job.pets} user={job.author} session={session} />
 
     </main >
   );

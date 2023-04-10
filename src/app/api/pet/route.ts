@@ -4,12 +4,7 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-export function GET(request: Request) {
-  return new Response('Hello, Next.js!')
-}
-
-
-const postSchema = z.object({
+export const petSchema = z.object({
   name: z.string(),
   breed: z.string().optional(),
   bio: z.string().optional(),
@@ -22,7 +17,7 @@ export async function POST(request: Request) {
   if (!session) { return new Response("Unauthorized", { status: 401 }); }
 
   const requestData = await request.json();
-  const body = await postSchema.safeParseAsync(requestData);
+  const body = await petSchema.safeParseAsync(requestData);
 
   if (!body.success) {
     console.log(body.error);
@@ -38,4 +33,3 @@ export async function POST(request: Request) {
 
   return NextResponse.json(data);
 }
-

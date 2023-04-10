@@ -9,16 +9,28 @@ import { BiTask } from "react-icons/bi";
 import { BsCalendarDate } from "react-icons/bs";
 import { formatDate } from "@/lib/formatDate";
 import { Editable } from "@/types/editable";
+import { ModifyJob } from "./modify";
+import { Edit } from "../layout/editButton";
 
 interface JobProps extends Editable {
   job: (Prisma.Job & { pets: Prisma.Pet[]; })
 }
 
-export const Job = ({ job }: JobProps) => {
+export const Job = ({ job, editable }: JobProps) => {
 
   return (
     <Link href={`/job/${job.id}`} className={styles.wrapper}>
       <article key={job.id} className={styles.main}>
+
+        {editable &&
+          <Edit title="Edit Job">
+            <ModifyJob defaultValues={JSON.parse(JSON.stringify({
+              ...job,
+              startDate: job.startDate?.toLocaleDateString('en-CA'),
+              endDate: job.endDate?.toLocaleDateString('en-CA'),
+            }))} />
+          </Edit>
+        }
 
         <section className={styles.info}>
           <h1>{job.title}</h1>

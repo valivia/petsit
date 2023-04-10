@@ -18,6 +18,7 @@ const getData = async (id: string) => {
 export default async function Page({ params }: { params: Params }) {
 
   const session = await getServerSession(authOptions);
+  const editable = session?.user?.id === params.id;
 
   const data = await getData(params.id);
   if (!data.user) notFound();
@@ -27,11 +28,11 @@ export default async function Page({ params }: { params: Params }) {
 
       <Profile user={data.user} />
 
-      <Environment assets={data.user.assets} user={data.user} />
+      <Environment assets={data.user.assets} editable={editable} />
 
-      <Pets pets={data.user.pets} user={data.user} session={session} />
+      <Pets pets={data.user.pets} editable={editable} />
 
-      <Jobs jobs={data.jobs} />
+      <Jobs jobs={data.jobs} editable={editable} />
 
     </main >
   );

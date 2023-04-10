@@ -3,8 +3,19 @@ import Image from "next/image";
 import Prisma from "@prisma/client";
 import { BiDna, BiCake } from "react-icons/bi";
 import { formatDate } from "@/lib/formatDate";
+import { Edit } from "../layout/editButton";
+import { asSyncComponent } from "@/lib/async";
+import { Editable } from "@/types/editable";
+import { ModifyPet } from "./modify";
 
-export const Pet = ({ pet }: { pet: Prisma.Pet }) => {
+interface Props extends Editable {
+  pet: Prisma.Pet;
+}
+
+export const Pet = asSyncComponent(async ({ pet, editable }: Props) => {
+
+  console.log({ pet })
+
   return (
     <article key={pet.id} className={styles.main}>
 
@@ -12,7 +23,7 @@ export const Pet = ({ pet }: { pet: Prisma.Pet }) => {
       <div className={styles.header}>
 
         <figure className={styles.avatar}>
-          <Image src="https://cdn.discordapp.com/attachments/798915150445936750/1091780827467219025/PXL_20230331_131839568.PORTRAIT.jpg" alt="" fill />
+          <Image src={`/avatars/${pet.avatar}`} alt="" fill />
         </figure>
 
         <h2 className={styles.title}>{pet.name}</h2>
@@ -21,6 +32,12 @@ export const Pet = ({ pet }: { pet: Prisma.Pet }) => {
 
       {/* Content */}
       <div className={styles.content}>
+
+        {editable &&
+          <Edit title="Edit Pet">
+            <ModifyPet defaultValues={JSON.parse(JSON.stringify({ ...pet, birthDate: pet.birthDate?.toLocaleDateString('en-CA') }))} />
+          </Edit>
+        }
 
         <div className={styles.info}>
           <p><BiDna /> {pet.breed}</p>
@@ -35,4 +52,5 @@ export const Pet = ({ pet }: { pet: Prisma.Pet }) => {
 
     </article>
   );
-};
+}
+);

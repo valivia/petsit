@@ -5,21 +5,19 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { asSyncComponent } from "@/lib/async";
 import { AddImage } from "./addImage";
+import { Editable } from "@/types/editable";
 
-interface Props {
+interface Props extends Editable {
   assets: Prisma.Asset[];
-  user: Prisma.User;
 }
 
 export const Environment = asSyncComponent(
-  async ({ assets, user }: Props) => {
-    const session = await getServerSession(authOptions);
-    const isAllowed = session?.user?.id === user.id;
+  async ({ assets, editable }: Props) => {
 
     return (
-      <Section title="Environment" addComponent={<AddImage />} isAllowed={isAllowed}>
+      <Section title="Environment" addComponent={<AddImage />} editable={editable}>
         {assets.length === 0 &&
-          (isAllowed
+          (editable
             ? <p>You havent uploaded any pictures yet. Please consider uploading some so that others can see how comfy and pet friendly your place is!</p>
             : <p>this user has not uploaded any pictures yet.</p>
           )}
