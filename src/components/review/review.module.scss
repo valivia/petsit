@@ -1,0 +1,45 @@
+@use "@styles/abstracts" as *;
+
+.main {
+  position: relative;
+  flex: 0 0 auto;
+
+  width: min(40ch, 100%);
+  height: 20ch;
+
+  border: 2px solid $outline;
+  border-radius: $borderRadius;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em;
+
+  overflow-y: scroll;
+}
+
+.title {
+  @include header2;
+}
+
+.author,
+.job {
+  font-size: 0.8rem;
+  color: rgba($text, 0.5);
+  text-transform: capitalize;
+}
+
+.job {
+  justify-self: flex-end;
+}
+
+.rating {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1em;
+}
+
+.body {
+  flex-grow: 1;
+}

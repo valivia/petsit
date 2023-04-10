@@ -6,6 +6,10 @@
   & p {
     max-width: 70ch;
   }
+
+  & h2 {
+    @include header2;
+  }
 }
 
 .title {

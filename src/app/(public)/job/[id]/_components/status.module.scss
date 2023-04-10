@@ -4,3 +4,11 @@
   font-size: 0.8rem;
   color: rgba($text, 0.7);
 }
+
+.main {
+  width: min(100%, 40ch);
+  & table {
+    width: 100%;
+    @include table;
+  }
+}

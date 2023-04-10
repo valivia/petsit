@@ -15,7 +15,7 @@
   border-radius: 100%;
   position: relative;
   overflow: hidden;
-  border: 2px solid rgba($text, 0.4);
+  border: 2px solid $outline;
 
   & img {
     object-fit: cover;
@@ -23,7 +23,50 @@
 }
 
 @mixin section {
-  border: 2px solid rgba($text, 0.4);
+  border: 2px solid $outline;
   border-radius: 0.5rem;
   padding: 1em;
+}
+
+@mixin table {
+  border-collapse: collapse;
+
+  & th {
+    text-align: start;
+  }
+
+  & tr {
+    border-bottom: 1px solid $outline;
+  }
+
+  & td {
+    padding: 0.5rem 0.5rem;
+  }
+}
+
+@mixin button {
+  background-color: $text;
+  color: $primary;
+  border: none;
+  border-radius: $borderRadius;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+
+  transform: scale(1);
+  transition: all 0.2s ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    transform: scale(1);
+    background-color: rgba($text, 0.5);
+    cursor: not-allowed;
+  }
 }

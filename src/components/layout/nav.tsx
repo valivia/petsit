@@ -8,6 +8,7 @@ import { Session } from "next-auth";
 import { VscBell, VscBellDot } from "react-icons/vsc";
 import useSWR from "swr";
 import { fetcher } from "@/lib/swr";
+import { Route } from "next";
 
 export const Nav = ({ session }: { session: Session | null }) => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -55,7 +56,7 @@ export const Nav = ({ session }: { session: Session | null }) => {
           </li>
           :
           <li>
-            <Link href={"/api/auth/signin"} aria-label="Login">
+            <Link href={"/api/auth/signin" as Route} aria-label="Login">
               {dict.navigation.login}
             </Link>
           </li>

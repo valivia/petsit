@@ -1,5 +1,7 @@
 @use "@styles/abstracts" as *;
 
-.button {
+.main {
   @include button;
+  width: 100%;
+  margin-block: 1rem;
 }

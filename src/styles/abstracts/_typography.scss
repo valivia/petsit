@@ -16,3 +16,9 @@ $font-size: 16px;
   font-size: clamp(1.1rem, 5vw, 1.5rem);
   padding-bottom: 0.5em;
 }
+
+@mixin header2 {
+  font-weight: 400;
+  font-size: clamp(1.1rem, 5vw, 1.3rem);
+  padding-bottom: 0.4em;
+}

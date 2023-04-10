@@ -140,7 +140,8 @@ model Job {
 
   requests Request[]
   pets     Pet[]
-  review   Review[]
+
+  review Review?
 }
 
 enum RateType {
@@ -150,8 +151,7 @@ enum RateType {
 
 enum JobStatus {
   OPEN
-  ACCEPTED
-  CANCELLED
+  ONGOING
   COMPLETED
 }
 
@@ -182,15 +182,12 @@ model Review {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  title String
-  body  String
-
+  title  String
+  body   String
   rating Int
 
-  jobId String
+  jobId String @unique
   job   Job    @relation(fields: [jobId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  @@map("review")
 }
 
 model Asset {

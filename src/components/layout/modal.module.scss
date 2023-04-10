@@ -8,7 +8,7 @@
   background-color: $primary;
 
   border-radius: $borderRadius;
-  border: 2px solid rgba($text, 0.4);
+  border: 2px solid $outline;
 }
 
 .overlay {
@@ -29,7 +29,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
   padding: 2rem;
 
   & h1 {

@@ -8,10 +8,10 @@ import { prisma } from '@/lib/prisma';
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID as string,
-      clientSecret: process.env.GOOGLE_SECRET as string
-    }),
+    // GoogleProvider({
+    //   clientId: process.env.GOOGLE_CLIENT_ID as string,
+    //   clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+    // }),
     SpotifyProvider({
       clientId: process.env.SPOTIFY_CLIENT_ID as string,
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET as string
@@ -35,6 +35,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = user.id;
         session.user.firstName = user.firstName;
         session.user.lastName = user.lastName;
+        session.user.role = user.role;
       }
 
       return session

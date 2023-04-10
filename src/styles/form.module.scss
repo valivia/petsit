@@ -3,6 +3,25 @@
 .main {
   display: flex;
   flex-direction: column;
+  gap: 1em;
+
+  & fieldset {
+    display: flex;
+    flex-direction: column;
+    border: none;
+  }
+
+  & .notice {
+    font-size: 0.8rem;
+    color: rgba($error, 0.5);
+    margin-top: -1em;
+  }
+
+  & .error {
+    color: $error;
+    font-size: 0.8rem;
+    margin-bottom: 1em;
+  }
 
   & input,
   & textarea,
@@ -11,7 +30,7 @@
     color: $text;
     background-color: transparent;
 
-    border: 1px solid rgba($text, 0.4);
+    border: 1px solid $outline;
     border-radius: 0.3em;
 
     padding: 1em;
@@ -21,7 +40,7 @@
 
     &:focus {
       outline: transparent;
-      outline: 3px solid rgba($text, 0.4);
+      outline: 3px solid $outline;
     }
   }
 

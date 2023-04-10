@@ -1,19 +1,18 @@
-import { formatDate } from "@/lib/formatDate";
 import styles from "./job.module.scss";
 import Prisma from "@prisma/client";
-import { Details } from "./details";
 import { PropsWithChildren } from "react";
+import { Session } from "next-auth";
 
 interface Props {
-  job: Prisma.Job;
+  job: (Prisma.Job & {
+    requests: Prisma.Request[];
+    author: Prisma.User;
+    acceptedBy: Prisma.User | null;
+  });
+  session: Session | null;
 }
 
-export const Job = ({ job, children }: PropsWithChildren<Props>) => {
-
-  const hours =
-    job.startDate && job.endDate
-      ? Math.round((job.endDate.getTime() - job.startDate.getTime()) / 1000 / 60 / 60)
-      : 0;
+export const Job = ({ job, session, children }: PropsWithChildren<Props>) => {
 
   return (
     <section className={styles.main}>

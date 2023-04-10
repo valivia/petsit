@@ -2,6 +2,9 @@ import styles from "./status.module.scss";
 import { CreateRequest } from "@/app/(public)/job/[id]/_components/createRequest";
 import Prisma from "@prisma/client";
 import { Session } from "next-auth";
+import { CreateReview } from "./createReview";
+import { getDisplayName } from "@/lib/getDisplayName";
+import Link from "next/link";
 
 interface JobProps {
   job: (Prisma.Job & {
@@ -14,11 +17,35 @@ interface JobProps {
 
 export const Status = ({ job, session }: JobProps) => {
 
+  const isAuthor = session?.user?.id === job.author.id;
+  const isAcceptedUser = job.acceptedBy?.id === session?.user.id;
+
   // Job not open
   if (job.status !== Prisma.JobStatus.OPEN) {
     return (
       <section className={styles.main}>
-        <p>Status: {job.status}</p>
+        <h2>Status</h2>
+
+        <table>
+          <tbody>
+            <tr>
+              <th>Petsitter</th>
+              <td>
+                <Link href={`/user/${job.acceptedBy?.id}`}>
+                  {getDisplayName(job.acceptedBy!)}
+                </Link>
+              </td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td>{job.status.toLocaleLowerCase()}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        {isAuthor && job.status === Prisma.JobStatus.ONGOING &&
+          <CreateReview job={JSON.parse(JSON.stringify(job))} />
+        }
       </section>
     );
   }

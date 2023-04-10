@@ -8,11 +8,28 @@ import { Pets } from "@components/pet/pets";
 import { Profile } from "@/components/user/profile";
 import { Jobs } from "@components/job/jobs";
 import { Environment } from "./_components/environment ";
+import { Reviews } from "@/components/review/reviews";
 
 const getData = async (id: string) => {
-  const user = await prisma.user.findUnique({ where: { id }, include: { pets: true, assets: true } });
-  const jobs = await prisma.job.findMany({ where: { authorId: id }, include: { pets: true } });
-  return { user, jobs };
+  const user = await prisma.user.findUnique({
+    where: { id },
+    include: {
+      pets: true,
+      assets: true,
+      jobs: {
+        include: {
+          pets: true,
+        }
+      }
+    }
+  });
+
+  const reviews = await prisma.review.findMany({
+    where: { job: { acceptedBy: { id } } },
+    include: { job: { include: { author: true } } }
+  });
+
+  return { user, reviews };
 }
 
 export default async function Page({ params }: { params: Params }) {
@@ -28,11 +45,13 @@ export default async function Page({ params }: { params: Params }) {
 
       <Profile user={data.user} />
 
+      <Reviews reviews={data.reviews} />
+
       <Environment assets={data.user.assets} editable={editable} />
 
       <Pets pets={data.user.pets} editable={editable} />
 
-      <Jobs jobs={data.jobs} editable={editable} />
+      <Jobs jobs={data.user.jobs} editable={editable} />
 
     </main >
   );

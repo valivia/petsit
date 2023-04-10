@@ -4,23 +4,26 @@ import styles from "./reviews.module.scss";
 import Prisma from "@prisma/client";
 import { Review } from "./review";
 import { CreateReview } from "./create";
+import { Section } from "../layout/section";
 
 interface Props {
-  reviews: (Prisma.Review & { author: Prisma.User[]; })[];
-  session: Session;
+  reviews: (Prisma.Review & {
+    job: Prisma.Job & {
+      author: Prisma.User;
+    };
+  })[]
 }
 
-export const Reviews = ({ reviews, session }: Props) => {
+export const Reviews = ({ reviews }: Props) => {
 
   return (
-    <section className={styles.main}>
-      <h2 className={styles.title}>Reviews</h2>
-
-      <CreateReview />
-
+    <Section title="Reviews">
       <div className={styles.reviews}>
-        {reviews.map((review) => <Review review={review} />)}
+        {reviews.length > 0
+          ? reviews.map((review) => <Review key={review.id} review={review} />)
+          : <p>No reviews yet</p>
+        }
       </div>
-    </section>
+    </Section>
   );
 };

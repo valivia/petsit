@@ -6,7 +6,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { Request } from "@/components/request/request";
 import { Requests } from "@/components/request/requests";
 
-export async function getData(userId: string) {
+async function getData(userId: string) {
   const sent = await prisma.request.findMany({
     where: { userId },
     include: {
@@ -22,7 +22,7 @@ export async function getData(userId: string) {
   });
 
   const active = await prisma.job.findMany({
-    where: { authorId: userId, status: JobStatus.ACCEPTED },
+    where: { authorId: userId, status: JobStatus.ONGOING },
     include: { acceptedBy: true, author: true }
   });
 

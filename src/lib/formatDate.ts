@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const formatDate = (date: Date) => {
-  return date.toLocaleString("en-US", { dateStyle: "medium", timeStyle: undefined });
+  return moment(date).format("DD/MM, hA");
 };
