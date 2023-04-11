@@ -1,5 +1,6 @@
+import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { JobType, RateType, petType } from "@prisma/client";
+import { JobType, RateType } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";

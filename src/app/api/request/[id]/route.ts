@@ -1,5 +1,5 @@
-import { getSessionAndId } from "@/lib/middleware";
 import { prisma } from "@/lib/prisma";
+import { getSessionAndId } from "@/lib/middleware";
 
 import { JobStatus } from "@prisma/client";
 import { Session } from "next-auth";

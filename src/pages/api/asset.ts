@@ -1,3 +1,4 @@
+import { prisma } from "@/lib/prisma";
 import nextConnect from "next-connect";
 import multer from "multer";
 import { getServerSession } from "next-auth";

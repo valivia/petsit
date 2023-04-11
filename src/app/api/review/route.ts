@@ -1,3 +1,4 @@
+import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { JobStatus } from "@prisma/client";
 import { getServerSession } from "next-auth";
