@@ -1,5 +1,15 @@
 @use "@styles/abstracts" as *;
 
+@keyframes animateInSide {
+  0% {
+    opacity: 0;
+    transform: translatex(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translatex(0);
+  }
+}
 
 .reviews {
   width: 100%;
@@ -11,5 +21,5 @@
 
   padding-bottom: 1rem;
 
-  @include animate;
+  @include animate(animateInSide);
 }

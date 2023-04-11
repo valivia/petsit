@@ -1,5 +1,19 @@
 @use "@styles/abstracts" as *;
 
+
+@keyframes animateInSide {
+  0% {
+    opacity: 0;
+    transform: translatex(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translatex(0);
+  }
+}
+
+
+
 .main {
   margin: 0;
   padding: 0;
@@ -17,5 +31,5 @@
   -webkit-mask-image: $mask;
   mask-image: $mask;
 
-  @include animate;
+  @include animate(animateInSide);
 }
