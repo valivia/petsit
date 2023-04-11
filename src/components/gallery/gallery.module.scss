@@ -16,4 +16,6 @@
 
   -webkit-mask-image: $mask;
   mask-image: $mask;
+
+  @include animate;
 }

@@ -7,10 +7,23 @@
   }
 }
 
+@keyframes animateIn {
+  0% {
+    opacity: 0;
+    transform: translatex(-60px);
+  }
+  100% {
+    opacity: 1;
+    transform: translatex(0);
+  }
+}
+
 .requests {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 
   list-style: none;
+
+  @include animate();
 }

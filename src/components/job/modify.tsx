@@ -1,7 +1,7 @@
 "use client"
 
 import form from "@styles/form.module.scss"
-import Prisma, { JobType, RateType, petType } from "@prisma/client";
+import Prisma, { JobType, RateType, PetType } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation"
 import useSWR from "swr";
@@ -51,69 +51,88 @@ export const ModifyJob = ({ defaultValues }: Props) => {
   return (
     <form className={form.main} onSubmit={handleSubmit(onSubmit)}>
 
-      <label htmlFor="title">title</label>
-      <input
-        type="text"
-        {...register("title", { required: true })}
-      />
+      <fieldset>
+        <label htmlFor="title">title</label>
+        <input
+          type="text"
+          {...register("title", { required: true })}
+        />
+      </fieldset>
 
-      <label htmlFor="description">description</label>
-      <textarea
-        {...register("description", { required: true })}
-      />
+      <fieldset>
+        <label htmlFor="description">description</label>
+        <textarea
+          {...register("description", { required: true })}
+        />
+      </fieldset>
 
-      <label htmlFor="notes">notes</label>
-      <textarea
-        {...register("notes", { required: true })}
-      />
+      <fieldset>
+        <label htmlFor="notes">notes</label>
+        <textarea
+          {...register("notes", { required: true })}
+        />
+      </fieldset>
 
-      <label htmlFor="location">location</label>
-      <input
-        type="text"
-        {...register("location", { required: true })}
-      />
+      <fieldset>
+        <label htmlFor="location">location</label>
+        <input
+          type="text"
+          {...register("location", { required: true })}
+        />
+      </fieldset>
 
-      <label htmlFor="rate">rate</label>
-      <input
-        type="number"
-        step="0.01"
+      <fieldset>
+        <label htmlFor="rate">rate</label>
+        <input
+          type="number"
+          step="0.01"
 
-        {...register("rate", { required: true })}
-      />
+          {...register("rate", { required: true })}
+        />
+      </fieldset>
 
-      <label htmlFor="rateType">Payment type</label>
-      <select {...register("rateType")} >
-        {Object.keys(RateType).map((key) => (
-          <option key={key} value={key}>{key}</option>
-        ))}
-      </select>
+      <fieldset>
+        <label htmlFor="rateType">Payment type</label>
+        <select {...register("rateType")} >
+          {Object.keys(RateType).map((key) => (
+            <option key={key} value={key}>{key}</option>
+          ))}
+        </select>
+      </fieldset>
 
-      <label htmlFor="startDate">Start Date</label>
-      <input
-        type="datetime-local"
-        {...register("startDate", { required: true })}
-      />
+      <fieldset>
+        <label htmlFor="startDate">Start Date</label>
+        <input
+          type="datetime-local"
+          {...register("startDate", { required: true })}
+        />
+      </fieldset>
 
-      <label htmlFor="endDate">End Date</label>
-      <input
-        type="datetime-local"
-        {...register("endDate", {})}
-      />
+      <fieldset>
+        <label htmlFor="endDate">End Date</label>
+        <input
+          type="datetime-local"
+          {...register("endDate", {})}
+        />
+      </fieldset>
 
-      <label htmlFor="type">Job Type</label>
-      <select {...register("type")} >
-        {Object.keys(JobType).map((key) => (
-          <option key={key} value={key}>{key}</option>
-        ))}
-      </select>
+      <fieldset>
+        <label htmlFor="type">Job Type</label>
+        <select {...register("type")} >
+          {Object.keys(JobType).map((key) => (
+            <option key={key} value={key}>{key}</option>
+          ))}
+        </select>
+      </fieldset>
 
-      <label htmlFor="pets">Pets</label>
-      <select {...register("pets")} multiple>
-        {pets?.map((pet: Prisma.Pet) => (
-          <option key={pet.id} value={pet.id}>{pet.name}</option>
-        ))}
-      </select>
-
+      <fieldset>
+        <label htmlFor="pets">Pets</label>
+        <select {...register("pets")} multiple>
+          {pets?.map((pet: Prisma.Pet) => (
+            <option key={pet.id} value={pet.id}>{pet.name}</option>
+          ))}
+        </select>
+      </fieldset>
 
       <button type="submit">{defaultValues ? "Update" : "Add"}</button>
       {defaultValues &&

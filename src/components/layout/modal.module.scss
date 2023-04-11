@@ -29,7 +29,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem;
+  padding: 1.2rem;
 
   & h1 {
     @include header1;
@@ -37,7 +37,9 @@
 }
 
 .content {
-  padding: 2rem;
+  padding: 1.2rem;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 .close {

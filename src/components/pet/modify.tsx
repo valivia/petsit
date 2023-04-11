@@ -1,7 +1,7 @@
 "use client"
 
 import form from "@styles/form.module.scss"
-import Prisma, { petType } from "@prisma/client";
+import Prisma, { PetType } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation"
 
@@ -79,33 +79,44 @@ export const ModifyPet = ({ defaultValues }: Props) => {
 
       <form className={form.main} onSubmit={handleSubmit(onSubmit)}>
         <h2>Info</h2>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          {...register("name", { required: true })}
-        />
 
-        <label htmlFor="bio">Bio</label>
-        <textarea
-          maxLength={96}
-          {...register("bio", { required: true, maxLength: 96 })}
-        />
+        <fieldset>
+          <label htmlFor="name">Name</label>
+          <input
+            type="text"
+            {...register("name", { required: true })}
+          />
+        </fieldset>
 
-        <label htmlFor="birthDate">Birth Date</label>
-        <input
-          type="date"
-          {...register("birthDate", { valueAsDate: true, required: true })}
-        />
+        <fieldset>
+          <label htmlFor="bio">Bio</label>
+          <textarea
+            maxLength={96}
+            {...register("bio", { required: true, maxLength: 96 })}
+          />
+        </fieldset>
 
-        <label htmlFor="type">Animal Type</label>
-        <select {...register("type")} >
-          {Object.keys(petType).map((key) => (
-            <option key={key} value={key}>{key}</option>
-          ))}
-        </select>
+        <fieldset>
+          <label htmlFor="birthDate">Birth Date</label>
+          <input
+            type="date"
+            {...register("birthDate", { valueAsDate: true, required: true })}
+          />
+        </fieldset>
 
-        <label htmlFor="breed">Breed</label>
-        <input type="text" {...register("breed")} />
+        <fieldset>
+          <label htmlFor="type">Animal Type</label>
+          <select {...register("type")} >
+            {Object.keys(PetType).map((key) => (
+              <option key={key} value={key}>{key}</option>
+            ))}
+          </select>
+        </fieldset>
+
+        <fieldset>
+          <label htmlFor="breed">Breed</label>
+          <input type="text" {...register("breed")} />
+        </fieldset>
 
         <button type="submit">{defaultValues ? "Update" : "Add"}</button>
         {defaultValues &&

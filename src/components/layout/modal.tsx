@@ -22,6 +22,7 @@ export const Modal = ({ children, isOpen, setIsOpen, title }: PropsWithChildren<
       className={styles.main}
       overlayClassName={styles.overlay}
       shouldCloseOnOverlayClick={true}
+      preventScroll
     >
       <header className={styles.header}>
         <h1>{title}</h1>

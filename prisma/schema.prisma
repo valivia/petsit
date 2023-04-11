@@ -95,7 +95,7 @@ model Pet {
   breed     String?
   bio       String?
   birthDate DateTime?
-  type      petType
+  type      PetType
 
   avatar String?
 
@@ -105,11 +105,12 @@ model Pet {
   jobs Job[]
 }
 
-enum petType {
+enum PetType {
   DOG
   CAT
   BIRD
   OTHER
+	@@map("PetType")
 }
 
 // Job

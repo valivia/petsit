@@ -7,6 +7,7 @@ import { Edit } from "../layout/editButton";
 import { asSyncComponent } from "@/lib/async";
 import { Editable } from "@/types/editable";
 import { ModifyPet } from "./modify";
+import moment from "moment";
 
 interface Props extends Editable {
   pet: Prisma.Pet;
@@ -39,7 +40,7 @@ export const Pet = asSyncComponent(async ({ pet, editable }: Props) => {
 
         <div className={styles.info}>
           <p><BiDna /> {pet.breed ?? pet.type}</p>
-          {pet.birthDate && <p><BiCake /> {formatDate(pet.birthDate)}</p>}
+          {pet.birthDate && <p><BiCake /> {moment(pet.birthDate).format("DD/MM/YYYY")}</p>}
         </div>
 
         <div className={styles.bio}>

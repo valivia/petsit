@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import { petType } from "@prisma/client";
+import { PetType } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -10,7 +10,7 @@ export const petSchema = z.object({
   breed: z.string().optional(),
   bio: z.string().optional(),
   birthDate: z.coerce.date().optional(),
-  type: z.nativeEnum(petType),
+  type: z.nativeEnum(PetType),
 });
 
 export async function GET(request: Request) {

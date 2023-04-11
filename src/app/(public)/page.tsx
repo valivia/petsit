@@ -2,6 +2,7 @@ import { JobStatus } from "@prisma/client";
 import styles from "./page.module.scss";
 import { prisma } from "@/lib/prisma";
 import { Jobs } from "../../components/job/jobs";
+import { FilteredJobs } from "@/components/job/filteredJobs";
 
 const getJobs = async () => {
 
@@ -11,6 +12,9 @@ const getJobs = async () => {
     },
     include: {
       pets: true,
+    },
+    orderBy: {
+      createdAt: "desc",
     },
   });
 
@@ -22,7 +26,7 @@ export default async function Page() {
 
   return (
     <main className={styles.main}>
-      <Jobs jobs={jobs} />
+      <FilteredJobs jobs={JSON.parse(JSON.stringify(jobs))} />
     </main >
   );
 }

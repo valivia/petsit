@@ -1,4 +1,4 @@
-import { JobType, Pet, PrismaClient, RateType, User, petType } from "@prisma/client";
+import { JobType, Pet, PrismaClient, RateType, User, PetType } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 
 const prisma = new PrismaClient();
@@ -51,7 +51,7 @@ async function createJob(user: User) {
           breed: faker.animal.bird(),
           bio: faker.lorem.paragraph(),
           birthDate: faker.date.past(),
-          type: randomEnum(petType),
+          type: randomEnum(PetType),
           userId: user.id,
         }))
       }

@@ -1,5 +1,5 @@
 -- CreateEnum
-CREATE TYPE "petType" AS ENUM ('DOG', 'CAT', 'BIRD', 'OTHER');
+CREATE TYPE "PetType" AS ENUM ('DOG', 'CAT', 'BIRD', 'OTHER');
 
 -- CreateEnum
 CREATE TYPE "JobStatus" AS ENUM ('PENDING', 'ACCEPTED', 'REJECTED', 'CANCELLED', 'COMPLETED');
@@ -67,7 +67,7 @@ CREATE TABLE "Pet" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "name" TEXT NOT NULL,
-    "type" "petType" NOT NULL,
+    "type" "PetType" NOT NULL,
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "Pet_pkey" PRIMARY KEY ("id")
