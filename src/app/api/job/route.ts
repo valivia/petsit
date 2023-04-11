@@ -5,10 +5,6 @@ import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
-export function GET(request: Request) {
-  return new Response('Hello, Next.js!')
-}
-
 
 export const jobSchema = z.object({
   title: z.string(),
@@ -25,6 +21,15 @@ export const jobSchema = z.object({
   type: z.nativeEnum(JobType),
   pets: z.array(z.string()),
 });
+
+export async function GET(request: Request) {
+  const session = await getServerSession(authOptions);
+  if (!session) { return new Response("Unauthorized", { status: 401 }); }
+
+  const data = await prisma.job.findMany({ where: { authorId: session.user?.id } });
+  return NextResponse.json(data);
+}
+
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);

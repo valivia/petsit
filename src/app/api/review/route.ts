@@ -59,3 +59,22 @@ export async function POST(req: Request, res: Response) {
 
   return NextResponse.json({ success: true });
 }
+
+
+export async function GET(req: Request, res: Response) {
+  const session = await getServerSession(authOptions);
+  if (!session) { return new Response("Unauthorized", { status: 401 }); }
+
+  const data = await prisma.review.findMany({
+    where: {
+      job: {
+        OR: [
+          { authorId: session.user?.id },
+          { acceptedUserId: session.user?.id },
+        ],
+      }
+    },
+  });
+
+  return NextResponse.json(data);
+}

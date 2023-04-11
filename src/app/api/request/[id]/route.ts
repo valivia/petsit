@@ -52,3 +52,14 @@ export async function PUT(req: Request, { params }: Params) {
 
   return NextResponse.json({ success: true });
 }
+
+
+export async function GET(req: Request, { params }: Params) {
+  const { session, id, error: error1 } = await getSessionAndId(params);
+  if (error1) { return error1; }
+
+  const { request, error: error2 } = await checkOwnership(id, session);
+  if (error2) { return error2; }
+
+  return NextResponse.json(request);
+}

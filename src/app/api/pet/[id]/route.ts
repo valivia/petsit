@@ -25,6 +25,21 @@ export async function DELETE(request: Request, { params }: Params) {
 }
 
 
+export async function GET(request: Request, { params }: Params) {
+  const { session, id, error } = await getSessionAndId(params)
+  if (error) return error;
+
+  const data = await prisma.pet.findUnique({
+    where: { id },
+    include: { user: true },
+  });
+
+  if (!data) return new Response("Pet not found", { status: 404 });
+
+  return NextResponse.json(data);
+}
+
+
 export async function PUT(request: Request, { params }: Params) {
   const session = await getServerSession(authOptions);
   if (!session) { return new Response("Unauthorized", { status: 401 }); }

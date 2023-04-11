@@ -22,6 +22,21 @@ export async function DELETE(request: Request, { params }: IdParams) {
 }
 
 
+export async function GET(request: Request, { params }: IdParams) {
+  const { session, id, error } = await getSessionAndId(params)
+  if (error) return error;
+
+  const data = await prisma.job.findUnique({
+    where: { id },
+    include: { pets: true, author: true, acceptedBy: true },
+  });
+
+  if (!data) return new Response("Job not found", { status: 404 });
+
+  return NextResponse.json(data);
+}
+
+
 export async function PUT(request: Request, { params }: IdParams) {
   const session = await getServerSession(authOptions);
   if (!session) { return new Response("Unauthorized", { status: 401 }); }
