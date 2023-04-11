@@ -6,7 +6,7 @@ export const generateFileName = (req: any, file: Express.Multer.File, cb: (error
   if (extension.length > 16) {
     cb(new Error("extension too long"), "");
   } else {
-    const prependedExtension = extension.length > 0 ? `.${extension}` : "";
+    const prependedExtension = extension.length > 0 ? `${extension}` : "";
     cb(null, `${file.fieldname}-${uniqueSuffix}${prependedExtension}`);
   }
 };

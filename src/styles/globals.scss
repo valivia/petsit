@@ -24,6 +24,10 @@ a {
   text-decoration: none;
 }
 
+button {
+  @include button;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 1px;

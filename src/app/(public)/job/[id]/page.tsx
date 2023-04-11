@@ -11,6 +11,8 @@ import { JobStatus } from "@prisma/client";
 import { CreateRequest } from "./_components/createRequest";
 import { Details } from "./_components/details";
 import { Status } from "./_components/status";
+import { AdminButton } from "@/components/layout/adminMenu";
+import { Mod } from "./_components/mod";
 
 
 async function getData(id: string) {
@@ -33,6 +35,12 @@ export default async function Page({ params }: { params: Params }) {
 
   return (
     <main className={styles.main}>
+
+      <AdminButton title="Moderate job" session={session}>
+        <Mod id={params.id} />
+      </AdminButton>
+
+
       <Profile user={job.author} />
 
       <Job job={job} session={session}>

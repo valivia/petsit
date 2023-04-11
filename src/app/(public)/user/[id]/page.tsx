@@ -10,6 +10,8 @@ import { Jobs } from "@components/job/jobs";
 import { Environment } from "./_components/environment ";
 import { Reviews } from "@/components/review/reviews";
 import { JobStatus } from "@prisma/client";
+import { AdminButton } from "@/components/layout/adminMenu";
+import { Mod } from "./_components/mod";
 
 const getData = async (id: string) => {
   const user = await prisma.user.findUnique({
@@ -44,6 +46,10 @@ export default async function Page({ params }: { params: Params }) {
 
   return (
     <main className={styles.main}>
+
+      <AdminButton title="Moderate User" session={session}>
+        <Mod id={params.id} />
+      </AdminButton>
 
       <Profile user={data.user} />
 

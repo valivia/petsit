@@ -1,0 +1,14 @@
+@use "@styles/abstracts" as *;
+
+.button {
+  @include button;
+  position: fixed;
+  right: 0;
+  top: 6rem;
+  z-index: 10000;
+  background: $error;
+  color: $primary;
+  padding: 1rem;
+  margin-right: 0.5rem;
+  border: none;
+}

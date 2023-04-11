@@ -7,7 +7,11 @@ export async function DELETE(request: Request, { params }: IdParams) {
   const { session, id, error } = await getSessionAndId(params)
   if (error) return error;
 
-  if (session.user.id !== id && session.user.role !== Prisma.Role.ADMIN)
+  const user = await prisma.user.findUnique({ where: { id } });
+
+  if (!user) return new Response("User not found", { status: 404 });
+
+  if ((session.user.id !== user.id && session.user.role !== Prisma.Role.ADMIN) || user.role === Prisma.Role.ADMIN)
     return new Response("Unauthorized", { status: 401 });
 
 
