@@ -48,7 +48,7 @@ export const Job = ({ job, editable }: JobProps) => {
           {job.pets.map(pet => (
             <div key={pet.id} className={styles.pet}>
               <Image
-                src={`/avatars/${pet.avatar ?? "default.jpg"}`}
+                src={`${process.env.NEXT_PUBLIC_URL}/avatars/${pet.avatar ?? "default.jpg"}`}
                 alt={pet.name}
                 fill
               />

@@ -22,7 +22,7 @@ export const Item = ({ id, author }: Props) => {
 
   return (
     <div className={styles.item}>
-      <Image src={`/assets/${id}`} alt="" fill />
+      <Image src={`${process.env.NEXT_PUBLIC_URL}/assets/${id}`} alt="" fill />
 
       {session.data?.user.id === author &&
         <button

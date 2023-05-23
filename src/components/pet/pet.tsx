@@ -22,7 +22,7 @@ export const Pet = asSyncComponent(async ({ pet, editable }: Props) => {
       <div className={styles.header}>
 
         <figure className={styles.avatar}>
-          <Image src={`/avatars/${pet.avatar ?? "default.jpg"}`} alt="" fill />
+          <Image src={`${process.env.NEXT_PUBLIC_URL}/avatars/${pet.avatar ?? "default.jpg"}`} alt="" fill />
         </figure>
 
         <h2 className={styles.title}>{pet.name}</h2>
